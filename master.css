@@ -1,0 +1,19 @@
+body {
+  margin: 20px auto;
+  width: 80%;
+  line-height: 1.2;
+  font-family: sans-serif;
+}
+
+/*a:link {
+  text-decoration: none;
+}*/
+a:hover {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: normal;
+  font-family: 'Oxygen', sans-serif;
+}
