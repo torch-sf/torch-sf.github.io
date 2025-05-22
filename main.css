@@ -118,7 +118,7 @@ ul.custom-bullets li {
       margin: 20px 20px;
       padding: 15px;
       border-radius: 0;
-        width: fit-content;           /* shrink-wrap to content */
+        height: fit-content;           /* shrink-wrap to content */
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
