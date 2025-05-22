@@ -125,6 +125,7 @@ width: 100vw;         /* Full viewport width */
         margin-right: auto;
         min-width: 500px;
         max-height: 1200px;
+        min-height: 750px;
 
     }
 
