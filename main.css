@@ -119,7 +119,8 @@ ul.custom-bullets li {
       padding: 15px;
       border-radius: 0;
         height: fit-content;           /* shrink-wrap to content */
-        max-width: 100%;
+width: 100vw;         /* Full viewport width */
+  max-width: 100vw;
         margin-left: auto;
         margin-right: auto;
         min-width: 500px;
