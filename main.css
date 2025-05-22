@@ -1,19 +1,152 @@
 body {
   margin: 20px auto;
+  margin-left: 200px;
+  margin-top: 0;
   width: 80%;
   line-height: 1.2;
-  font-family: sans-serif;
+  font-family: 'Oxygen', sans-serif;
+  color: white;
 }
 
-/*a:link {
+a:link {
   text-decoration: none;
-}*/
+  color: cyan;
+    /*font-family: 'Oxygen', bold;*/
+}
+a:visited {
+  text-decoration: none;
+  color: cyan;
+}
 a:hover {
   text-decoration: none;
+  color: seagreen;
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 75px;
   font-weight: normal;
   font-family: 'Oxygen', sans-serif;
+  color: white;
 }
+
+h2 {
+  font-size: 40px;
+  font-weight: normal;
+  font-family: 'Oxygen', sans-serif;
+  color: white;
+}
+
+ul.custom-bullets {
+  list-style: none; /* Remove default bullets */
+  /*padding-left: 0;   Optional: adjust spacing */
+}
+
+ul.custom-bullets li {
+  background: url('./media/logo_inv.png') no-repeat left center;
+  background-size: 16px 16px; /* Adjust to your image size */
+  padding-left: 24px;         /* Add space to show the image */
+  margin-bottom: 10px;        /* Optional spacing between items */
+}
+
+/* The sidebar menu */
+.sidenav {
+  height: 100%;           /* Full-height: remove this if you want "auto" height */
+  width: 175px;           /* Set the width of the sidebar */
+  position: fixed;        /* Fixed Sidebar (stay in place on scroll) */
+  top: 0;                 /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black background color */
+  padding-top: 20px;      /* Some top padding */
+}
+
+/* Sidebar links */
+.sidenav a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #f1f1f1;
+  display: block;
+}
+
+/* Hover effect */
+.sidenav a:hover {
+  background-color: #575757;
+    color: cyan;
+
+}
+
+
+.container {
+  display: flex;
+  /*align-items: stretch;  Stretch columns to match tallest */
+  /*justify-content: center;*/
+    align-items: center;     /* Vertical center */
+  justify-content: center; /* Optional: horizontal center */
+  height: 200px;           /* Set a height so centering is visible */
+}
+
+.column-left {
+  width: 60%;
+  font-size: 20px;
+
+}
+
+.column-right {
+  width: 40%;
+  display: flex;           /* Center the image in the right column */
+  align-items: center;
+  justify-content: center;
+}
+
+.column-right img {
+  height: 100%;            /* Image fills the height of its column */
+  max-height: 300px;
+  width: auto;             /* Preserve aspect ratio */
+  object-fit: contain;     /* Optional: keep full image visible */
+}
+
+
+
+    .flex-box {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: black;
+      /*box-shadow: 10px white;*/
+        box-shadow: 0 0 5px 5px white; /* ← Updated */
+      margin: 20px 20px;
+      padding: 15px;
+      border-radius: 0;
+      /*height: fit-content;*/
+        width: fit-content;           /* shrink-wrap to content */
+        /*max-width: 100%;*/
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 500px;
+
+    }
+
+
+    .flex-box img {
+      /*max-width: 200px;*/
+      max-width: 100%;
+      max-height: 950px;
+      width: auto;
+      border-radius: 4px;
+      margin-top: 10px;
+      align-self: center; /* default: align left */
+
+    }
+
+    .flex-box .title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .flex-box {
+        align-items: center !important;
+        text-align: center !important;
+      }
+    }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<body style="background-color:black;">
 
 <head>
 
@@ -23,94 +24,141 @@
 </head>
 
 <body>
-<div class="header">
-  <h1>Torch<img src="./media/logo.png" alt="logo" width="50px"/></h1>
-  
+
+<div class="sidenav">
+  <a href="https://bitbucket.org/torch-sf/torch">Bitbucket</a>
+  <a href="quickstart.pdf">Quickstart guide</a>
+  <a href="https://ui.adsabs.harvard.edu/public-libraries/oFeUhiuiTKSqfFvBOLoF3A">Publications</a>
+  <a href="https://groups.google.com/forum/#!aboutgroup/torch-users">Mailing list</a>
 </div>
+
+<h1>Torch<img src="./media/logo_inv.png" alt="logo" width="50px"/></h1>
+
 <!--h1>TORCH</h1> <img src="icon.png" width="80px-->
 
-<p>
-Torch is a code to simulate coupled gas and N-body dynamics in astrophysical
-systems such as newly forming star clusters.
-It combines
+<div class="container">
+    <div class="column-left">
+Torch is an open-source code to simulate coupled gas and N-body dynamics in astrophysical
+systems, and it is primarily used for simulating star cluster formation.
+Torch combines
 the <a href="https://flash.rochester.edu/site/index.shtml">FLASH</a> code for gas dynamics
 and the ph4 code for direct N-body evolution
 via the <a href="http://www.amusecode.org">AMUSE</a> framework.
 An introduction to Torch is given by
-Wall <span style='font-style:italic'>et al.</span>
-<a href="https://ui.adsabs.harvard.edu/abs/2019ApJ...887...62W/abstract">2019ApJ...887...62W</a>
-and <a href="https://ui.adsabs.harvard.edu/abs/2020ApJ...904..192W/abstract">2020ApJ...904..192W</a>,
-as well as Joshua Wall's
+<a href="https://ui.adsabs.harvard.edu/abs/2019ApJ...887...62W/abstract">Wall <span style='font-style:italic'>et al.</span> 2019</a>, <a href="https://ui.adsabs.harvard.edu/abs/2020ApJ...904..192W/abstract">2020</a>,
+and Joshua Wall's
 <a href="https://ui.adsabs.harvard.edu/abs/2019PhDT.........2W/abstract">Ph.D thesis</a>
-(<a href="https://www.dropbox.com/s/c0qh1no85y1jnxf/J_Wall-Thesis_final.pdf?dl=0">pdf mirror</a>).
-</p>
+(<a href="https://www.dropbox.com/s/c0qh1no85y1jnxf/J_Wall-Thesis_final.pdf?dl=0">pdf mirror</a>). The Torch project is supported by NASA grant no.&nbsp;NNX14AP27G and NSF grant no.&nbsp;<a href="https://nsf.gov/awardsearch/showAward?AWD_ID=1815461">1815461</a>.
+</div>
+
+  <div class="column-right"><img src="./media/M6_volume.png" alt="m6_vol", width=100%/></div>
+
+</div>
+
+<h2>Torch Theses</h2>
+<ul class="custom-bullets">
+  <li><a href="https://ui.adsabs.harvard.edu/abs/2019PhDT.........2W/abstract">Joshua E. Wall (PhD, 2019)</a>: The Formation and Early Evolution of Stellar Clusters</li>
+  <li><a href="http://hdl.handle.net/11375/26924">Claude Cournoyer-Cloutier (MSc, 2021)</a>: Dynamical Modification of a Primordial Population of Binaries in Simulations of Star Cluster Formation</li>
+  <li><a href="https://doi.org/doi:10.7282/t3-p3kg-dk21">Sabrina M. Appel (PhD, 2024)</a>: Exploring the effect of protostellar feedback on star formation and molecular cloud dynamics</li>
+  <li><a href="https://archiv.ub.uni-heidelberg.de/volltextserver/35490/">Brooke Polak (PhD, 2024)</a>: The Secret Lives of Young Massive Star Clusters</li>
+</ul>
+
+
+
+<h2>Research Highlights</h2>
+
+<div class="flex-box">
+  <div class="title"><img src="./media/logo_inv.png" alt="icon" class="title-icon" height=20px/> Evolution of primordial binary populations during cluster formation (<a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...977..203C/abstract">Cournoyer-Cloutier et al. 2025</a>)</div>
+  <img src="./media/binary_sim.gif" alt="Highlight 1" class="main-image">
+
+  <p>
+    Evolution of a star cluster forming from a 2x10<sup>4</sup> M<sub>⊙</sub> cloud. Primordial binary formation is included. The colours of the stars change with age, going from white to golden yellow.
+  </p>
+
+</div>
+
+<div class="flex-box">
+  <div class="title"><img src="./media/logo_inv.png" alt="icon" class="title-icon" height=20px/> Runaway stars as fossils of subcluster mergers (<a href="https://ui.adsabs.harvard.edu/abs/2024A%26A...690A.207P/abstract">Polak et al. 2024b</a>)</div>
+  <img src="./media/runaways.gif" alt="Highlight 2" class="main-image">
+
+  <p>
+
+This is the subcluster ejection scenario (SCES), where a subset of stars from an infalling subcluster is ejected out of the cluster via a tidal interaction with the contracting gravitational potential of the assembling cluster. Runaways formed in the same SCES have similar ages, velocities, and ejection directions. This movie shows formation and ejection of an SCES runaway star group. Left: Stars as they are forming in the cluster. Right: Gravitational potential of both the stars and gas. The trajectories of the runaway stars are shown as lines. Once each runaway star forms, it appears with a star marker. 
+
+  </p>
+
+</div>
+
+<div class="flex-box">
+  <div class="title"><img src="./media/logo_inv.png" alt="icon" class="title-icon" height=20px/> Centrally concentrated gas collapses further during star formation (Assilkhan et al. in prep)</div>
+  <img src="./media/bd_prfle.png" alt="Highlight 4" class="main-image">
+  <p>
+    
+Stellar density profiles and gas slices compared to analytic prediction (blue) of Parmentier & Pfalzner (2013) that assumes in situ collapse of gas into stars. 
+
+<!-- Stellar density profiles and gas slices for different resolutions at 4.5 t<sub>ff</sub> . Column 1: density profiles of bound stars
+compared to the initial and fitted Plummer profiles. Column 2: gas density slices without stars, showing gas motion via white
+arrows and the cluster region (black circle). Column 3: gas slices with stars (white dots) and massive stars (cyan dots, scaled by
+mass). For resolution 4, two clusters are treated separately. Bound star statistics are shown in the bottom-right. The time of
+SFE 25 is marked with an asterisk to match other simulations. -->
+
+  </p>
+
+</div>
+
+<div class="flex-box">
+  <div class="title"><img src="./media/logo_inv.png" alt="icon" class="title-icon" height=20px/> Abundance distribution inherited by stars from gas (Andersson et al. in prep)</div>
+  <img src="./media/abundances.png" alt="Highlight 5" class="main-image">
+
+  <p>
+
+Turbulent, spherical clouds of 10<sup>4</sup> M<sub>⊙</sub> with different initial tracer distributions shown on the right (Kolmogorov spectra with ℓ=L/f<sub>max</sub>). Larger-scale variation in gas widens stellar distribution.  
+
+  </p>
+
+</div>
+
+<div class="flex-box">
+  <div class="title"><img src="./media/logo_inv.png" alt="icon" class="title-icon" height=20px/> High star formation efficiency in young massive clusters (<a href="https://ui.adsabs.harvard.edu/abs/2024A%26A...690A..94P/abstract">Polak et al. 2024a</a>)</div>
+  <img src="./media/time_panel_density.png" alt="Highlight 6" class="main-image">
 
 <p>
-Torch is distributed as an open-source
-<a href="https://bitbucket.org/torch-sf/torch">Bitbucket repository</a>.
-It is a new code in active development; contributions and bug reports are
-welcome.
-</p>
-
-<p>
-To start using Torch, here is a <a href="quickstart.pdf">quickstart guide</a>
-adapted from a workshop held 2019 August 28-30.
-</p>
-
-<p>
-You can join the
-<a href="https://groups.google.com/forum/#!aboutgroup/torch-users">Torch mailing list</a>
-to discuss Torch usage and development.
-</p>
-
-<p>
-There are several research papers that utilize the Torch framework.
-<p>
-<!-- 
-Pre-print:
-<ul>
   
-</ul>
--->
-Published:
-<ul>
-  <li>Polak <i>et al.</i> (2025): <a href="https://ui.adsabs.harvard.edu/abs/2025A%26A...695A.188P/abstract">Massive star cluster formation III. Early mass segregation during cluster assembly</a></li>
-  <li>Cournoyer-Cloutier <i>et al.</i> (2024b): <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...977..203C/abstract">Massive Star Cluster Formation with Binaries. I. Evolution of Binary Populations</a></li>
-  <li>Polak <i>et al.</i> (2024b): <a href="https://ui.adsabs.harvard.edu/abs/2024A%26A...690A.207P/abstract">Massive star cluster formation: II. Runaway stars as fossils of sub-cluster mergers</a></li>
-  <li>Polak <i>et al.</i> (2024a): <a href="https://ui.adsabs.harvard.edu/abs/2024A%26A...690A..94P/abstract">Massive star cluster formation: I. High star formation efficiency while resolving feedback of individual stars</a></li>
-  <li>Cournoyer-Cloutier <i>et al.</i> (2023): <a href="https://ui.adsabs.harvard.edu/abs/2023MNRAS.521.1338C/abstract">Early evolution and three-dimensional structure of embedded star clusters</a></li>
-  <li>Wilhelm <i>et al.</i> (2023): <a href="https://ui.adsabs.harvard.edu/abs/2023MNRAS.520.5331W/abstract">Radiation shielding of protoplanetary discs in young star-forming regions</a></li>
-  <li>Lewis <i>et al.</i> (2023): <a href="https://ui.adsabs.harvard.edu/abs/2023ApJ...944..211L/abstract">Early-forming massive stars supress star formation and heirarchical cluster assembly</a></li>
-  <li>Cournoyer-Cloutier <i>et al.</i> (2021): <a href="https://ui.adsabs.harvard.edu/abs/2021MNRAS.501.4464C/abstract">Implementing primordial binaries in simulations of star cluster formation with a hybrid MHD and direct N-body method</a></li>
-  <li>Wall <i>et al.</i> (2020): <a href="https://ui.adsabs.harvard.edu/abs/2020ApJ...904..192W/abstract">Modeling the effects of stellar feedback during star cluster formation using a hybrid gas and N-body method</a></li>
-  <li>Wall <i>et al.</i> (2019): <a href="https://ui.adsabs.harvard.edu/abs/2019ApJ...887...62W/abstract">Collisional N-body dynamics coupled to self-gravitating magnetohydrodynamics reveals dynamical binary formation</a></li>
-</ul>
+Models of 10<sup>4</sup>, 10<sup>5</sup>, and 10<sup>6</sup> M<sub>⊙</sub> star-forming turbulent clouds (M4, M5, and M6). Stars below 4 M<sub>⊙</sub> are agglomerated into dynamical "super"-star particles.
+
 </p>
 
-<p>
-Torch simulations are also used as initial conditions for N-body and hydrodynamics simulations.
-<p>
-Published:
-<ul>
-    <li>Cournoyer-Cloutier <i>et al.</i> (2024a): <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...975..207C/abstract">Binary Disruption and Ejected Stars from Hierarchical Star Cluster Assembly</a></li>
-</ul>
-</p>
+</div>
 
-<p>
-Torch is a central part of several PhD and MSc theses:
-<ul>
-  <li>Joshua E. Wall (PhD, 2019): <a href="https://ui.adsabs.harvard.edu/abs/2019PhDT.........2W/abstract">The Formation and Early Evolution of Stellar Clusters</a></li>
-  <li>Claude Cournoyer-Cloutier (MSc, 2021): <a href="http://hdl.handle.net/11375/26924">Dynamical Modification of a Primordial Population of Binaries in Simulations of Star Cluster Formation</a></li>
-  <li>Sabrina M. Appel (PhD, 2024): <a href="https://doi.org/doi:10.7282/t3-p3kg-dk21">Exploring the effect of protostellar feedback on star formation and molecular cloud dynamics</a></li>
-  <li>Brooke Polak (PhD, 2024): <a href="https://archiv.ub.uni-heidelberg.de/volltextserver/35490/">The Secret Lives of Young Massive Star Clusters</a></li>
-</ul>
-</p>
 
-<p>
-The Torch project is supported by
-NASA grant no.&nbsp;NNX14AP27G and
-NSF grant no.&nbsp;<a href="https://nsf.gov/awardsearch/showAward?AWD_ID=1815461">1815461</a>.
-</p>
+<!-- to make the image boxes as big as the image -->
+<script>
+  document.querySelectorAll('.flex-box').forEach(box => {
+    const img = box.querySelector('.main-image');
+    img.onload = () => {
+      const maxDim = Math.max(img.naturalWidth, img.naturalHeight);
+      box.style.width = maxDim + 'px';
+      box.style.height = maxDim + 'px';
+    };
+  });
+</script>
+
+<!-- randomize appearance of highlights each refresh -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.body; // Or a more specific parent if needed
+    const boxes = Array.from(document.querySelectorAll(".flex-box"));
+
+    // Shuffle the array using Fisher-Yates shuffle
+    for (let i = boxes.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [boxes[i], boxes[j]] = [boxes[j], boxes[i]];
+    }
+
+    // Remove and re-append in shuffled order
+    boxes.forEach(box => container.appendChild(box));
+  });
+</script>
 
 </body>
 
