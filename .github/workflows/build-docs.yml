@@ -1,0 +1,85 @@
+name: Build docs
+
+# Builds the Sphinx ("Read the Docs"-style) HTML from the private
+# torch-sf/torch-sf repo (branch docs/website, dir docs/rtd) and publishes
+# it into the /docs/ folder of this Pages site so it is served at /docs/.
+#
+# Requirements:
+#   - A repository secret named DOCS_PAT: a Personal Access Token (classic or
+#     fine-grained) with READ access to the contents of torch-sf/torch-sf.
+#     The built-in GITHUB_TOKEN cannot read a different private repository.
+
+on:
+  workflow_dispatch:        # run manually from the Actions tab
+  repository_dispatch:      # triggered by a push to docs/website in torch-sf/torch-sf
+    types: [docs-updated]
+  schedule:
+    - cron: "0 6 * * 1"     # also rebuild weekly (Mondays 06:00 UTC) as a safety net
+
+# Allow the job to push the built docs back to this repo's main branch.
+permissions:
+  contents: write
+
+concurrency:
+  group: build-docs
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Check out THIS repo (the Pages site) so we can commit /docs into it.
+      - name: Checkout site repo
+        uses: actions/checkout@v4
+
+      # 2. Check out the private docs source (only the docs/rtd subtree).
+      - name: Checkout docs source
+        uses: actions/checkout@v4
+        with:
+          repository: torch-sf/torch-sf
+          ref: docs/website
+          token: ${{ secrets.DOCS_PAT }}
+          path: _docs_src
+          sparse-checkout: docs/rtd
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Sphinx and doc requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r _docs_src/docs/rtd/requirements.txt
+
+      # 3. Compile the HTML exactly as Read the Docs does (sphinx-build).
+      #    No -W: like RTD, build warnings (e.g. pages not in a toctree) are
+      #    non-fatal and should not block publishing.
+      - name: Build HTML
+        run: |
+          sphinx-build -b html \
+            _docs_src/docs/rtd/source \
+            _docs_build/html
+
+      # 4. Sync the freshly built HTML into /docs/ (replace old contents).
+      - name: Publish into /docs
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp -a _docs_build/html/. docs/
+          # .nojekyll so GitHub Pages serves Sphinx's _static/_images dirs.
+          touch docs/.nojekyll
+
+      # 5. Commit the result back to this repo (only if something changed).
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "No documentation changes to publish."
+          else
+            git commit -m "Rebuild docs from torch-sf@docs/website"
+            git push
+          fi
