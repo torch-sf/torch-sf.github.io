@@ -1,17 +1,17 @@
 name: Build docs
 
 # Builds the Sphinx ("Read the Docs"-style) HTML from the private
-# torch-sf/torch-sf repo (branch docs/website, dir docs/rtd) and publishes
+# torch-sf/torch repo (branch docs/website, dir docs/rtd) and publishes
 # it into the /docs/ folder of this Pages site so it is served at /docs/.
 #
 # Requirements:
 #   - A repository secret named DOCS_PAT: a Personal Access Token (classic or
-#     fine-grained) with READ access to the contents of torch-sf/torch-sf.
+#     fine-grained) with READ access to the contents of torch-sf/torch.
 #     The built-in GITHUB_TOKEN cannot read a different private repository.
 
 on:
   workflow_dispatch:        # run manually from the Actions tab
-  repository_dispatch:      # triggered by a push to docs/website in torch-sf/torch-sf
+  repository_dispatch:      # triggered by a push to docs/website in torch-sf/torch
     types: [docs-updated]
   schedule:
     - cron: "0 6 * * 1"     # also rebuild weekly (Mondays 06:00 UTC) as a safety net
@@ -36,7 +36,7 @@ jobs:
       - name: Checkout docs source
         uses: actions/checkout@v4
         with:
-          repository: torch-sf/torch-sf
+          repository: torch-sf/torch
           ref: docs/website
           token: ${{ secrets.DOCS_PAT }}
           path: _docs_src
@@ -80,6 +80,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No documentation changes to publish."
           else
-            git commit -m "Rebuild docs from torch-sf@docs/website"
+            git commit -m "Rebuild docs from torch@docs/website"
             git push
           fi
