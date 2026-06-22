@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailed Installation Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-resolution-should-i-run-at">What resolution should I run at?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-is-my-run-stalling-in-entering-radray">Why is my run stalling in “Entering RadRay”?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-run-a-vanilla-flash-problem-with-torch-installed">How can I run a vanilla FLASH problem with Torch installed?</a></li>
 </ul>
@@ -87,6 +88,10 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="faq">
 <h1>FAQ<a class="headerlink" href="#faq" title="Link to this heading"></a></h1>
+<section id="what-resolution-should-i-run-at">
+<h2>What resolution should I run at?<a class="headerlink" href="#what-resolution-should-i-run-at" title="Link to this heading"></a></h2>
+<p>Torch is considered converged at ~0.3 pc resolution. This is the maximum recommended cell size for production simulations. Runs at lower resolution than this produce <strong>unphysical results</strong>.</p>
+</section>
 <section id="why-is-my-run-stalling-in-entering-radray">
 <h2>Why is my run stalling in “Entering RadRay”?<a class="headerlink" href="#why-is-my-run-stalling-in-entering-radray" title="Link to this heading"></a></h2>
 <p>You likely exceeded the max number of particles and rays.
