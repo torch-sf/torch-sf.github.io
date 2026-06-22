@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart &mdash; Torch-SF  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Detailed Installation Guide" href="Installation.html" />
+    <link rel="prev" title="Torch-SF" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torch-SF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment">Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-with-conda">Local, with conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hpc-with-virtualenv-and-modules">HPC, with virtualenv and modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-torch">Installing Torch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-turbsph-test">Running the turbsph test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#analyse-the-output">Analyse the output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailed Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/Torch.html">Torch</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer/Developer_Guide.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torch-SF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/manual/Quickstart.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h1>
+<p>Torch has many moving parts. You’ll likely have to adjust the procedure below
+for your personal setup. In any case, don’t despair! Torch has been successfully
+built and run on a variety of systems.
+We assume that you’re using (1) the bash shell, and (2) conda or a virtualenv
+for Python package management. But, the setup procedure should work for any
+shell and Python package manager with some adjustments.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>Torch consists of a collection of Fortran files that extend the FLASH MHD code,
+bindings for AMUSE for that extended FLASH, and a set of Python scripts that use
+AMUSE to run a simulation combining the extended FLASH with the other codes.
+Installing Torch therefore entails 1) creating an environment and installing the
+dependencies, including AMUSE, 2) installing Torch, with its extended FLASH and
+Python parts, and 3) installing the FLASH AMUSE bindings to tie it all together.</p>
+</section>
+<section id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Link to this heading"></a></h2>
+<p>First, start a new shell session. You may want to check your .bashrc for any old
+MPI or HDF5 configuration that could conflict with Torch setup – module load
+commands, environment variable exports, et cetera – and comment them out.
+Next, it is probably a good idea to make a project directory in which you can
+download and install all the pieces:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">torch_project</span>
+</pre></div>
+</div>
+<p>You can call it something different or arrange the files differently if you
+want. In particular if you’re on an HPC cluster with a limited amount of space
+available in your home directory, then you’ll want to use another location
+instead, for example a scratch directory. The documentation for the machine
+should tell you what is available. You’ll need about 2GB for the base
+installation, plus space for model output which can also easily grow to multiple
+gigabytes.</p>
+<p>Next, we’ll need an environment to install the Python bits into, and possibly
+the native tools and dependencies as well. There are two options here. If you’re
+on an HPC machine, then you’ll probably want to use native tools and
+dependencies, and a Python virtual environment for the Python bits. On a local
+machine, you can do that as well, or use conda instead to get everything
+contained in a single environment. Both options are described here.</p>
+</section>
+<section id="local-with-conda">
+<h2>Local, with conda<a class="headerlink" href="#local-with-conda" title="Link to this heading"></a></h2>
+<p>We’ll assume here that you already have conda installed and available. If not,
+we recommend installing the miniforge distribution from
+<a class="reference external" href="https://github.com/conda-forge/miniforge">https://github.com/conda-forge/miniforge</a>.
+First, we’ll create and activate a new conda environment, and set it to use
+conda-forge:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">Torch</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">Torch</span>
+</pre></div>
+</div>
+<p>Note that AMUSE is designed to work with the conda-forge package channel.
+Conda-forge contains a very large variety of scientific and other packages, so
+you’ll find everything you need for Torch as well as other tools you may want to
+use.</p>
+<p>Mixing conda channels is not recommended, as it leads to package
+incompatibilities, long waits for the solver to try to deal with incongruent
+sets of packages when installing, and hard to diagnose issues. So we strongly
+recommend sticking with conda-forge only. Miniforge will do that by default.</p>
+<p>If you open a new shell, then the environment needs to be reactivated using the
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">Torch</span></code> command before you do anything else.</p>
+<p>Once we have a conda environment, we can install the prerequisites inside of it,
+once again making sure our packages come from conda-forge (some versions of
+conda can be a bit stubborn on this):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">--</span><span class="n">override</span><span class="o">-</span><span class="n">channels</span> <span class="n">pip</span> <span class="n">wheel</span> <span class="n">c</span><span class="o">-</span><span class="n">compiler</span> <span class="n">cxx</span><span class="o">-</span><span class="n">compiler</span> <span class="n">fortran</span><span class="o">-</span><span class="n">compiler</span> <span class="s1">&#39;gfortran&lt;14&#39;</span> <span class="n">python</span> <span class="n">coreutils</span> <span class="n">patch</span> <span class="n">curl</span> <span class="n">make</span> <span class="n">openmpi</span> <span class="n">hdf5</span> <span class="n">zlib</span> <span class="s1">&#39;docutils&gt;=0.6&#39;</span> <span class="s1">&#39;mpi4py&gt;=1.1.0&#39;</span> <span class="s1">&#39;numpy&gt;=1.2.2&#39;</span> <span class="s1">&#39;h5py&gt;=1.1.0&#39;</span> <span class="n">scipy</span> <span class="n">astropy</span> <span class="n">jupyter</span> <span class="n">pandas</span> <span class="n">seaborn</span> <span class="n">matplotlib</span> <span class="n">yt</span>
+</pre></div>
+</div>
+<p>AMUSE is not yet available directly from conda-forge, so we’ll have to install
+it from source. First, we need to download and unpack it (into our project
+directory):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">amusecode</span><span class="o">/</span><span class="n">amuse</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>AMUSE has had a major upgrade to its installer recently, so be sure to get
+v2025.9.0 or a later version, older ones won’t work.</p>
+<p>Next, we can move into the newly created AMUSE source directory, and run the
+installer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">amuse</span>
+<span class="o">./</span><span class="n">setup</span>
+</pre></div>
+</div>
+<p>This will produce quite a bit of output, including an overview of installable
+codes, disabled codes and the reasons why, and follow-up instructions. If all
+went well then you should now be able to install the AMUSE packages you need
+into your conda environment using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">setup</span> <span class="n">install</span> <span class="n">framework</span> <span class="n">kepler</span> <span class="n">petar</span> <span class="n">ph4</span> <span class="n">seba</span> <span class="n">smalln</span>
+</pre></div>
+</div>
+<p>Note that Torch doesn’t necessarily use all of these, so if you know which ones
+you want, then you can install only those. At any rate you can return to the
+AMUSE directory later and use <code class="docutils literal notranslate"><span class="pre">./setup</span></code> to install more codes.</p>
+<p>That concludes setting up the environment and the dependencies, so you can
+scroll past the next section (one environment is enough, really!) and continue
+with installing Torch.</p>
+</section>
+<section id="hpc-with-virtualenv-and-modules">
+<h2>HPC, with virtualenv and modules<a class="headerlink" href="#hpc-with-virtualenv-and-modules" title="Link to this heading"></a></h2>
+<p>As an alternative to Conda, you can also use a Python virtual environment to
+install the Python dependencies into. Dependencies for the Fortran and C code
+in Torch will then have to be installed in some other way. Linux computers
+typically have a built-in package manager like <code class="docutils literal notranslate"><span class="pre">apt</span></code> or <code class="docutils literal notranslate"><span class="pre">dnf</span></code>, while on a Mac
+Homebrew and MacPorts are commonly used. On HPC machines, you typically load
+the necessary modules.</p>
+<p>If you’re on a local machine and have one of the above package managers
+available, then you should continue with the instructions below, but skip the
+loading of modules and just make the virtual environment and install the Python
+dependencies into it. If you then continue with installing AMUSE, the AMUSE
+installer will guide you through installing the dependencies using whichever
+package manager you have available. (Note that you won’t need everything it
+suggests, because Torch doesn’t use all of AMUSE. You can save some disk space
+by limiting your selection.)</p>
+<p>On an HPC cluster or similar environment, the main tools and dependencies are
+likely already installed and available as modules. To use them, we’ll have to
+activate them using the module command.</p>
+<p>First, let’s see what’s installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">avail</span>
+</pre></div>
+</div>
+<p>This will show a long (potentially very long) list of installed packages, or
+modules.</p>
+<p>On some systems, this will only show a few years, e.g. <code class="docutils literal notranslate"><span class="pre">2023</span></code> <code class="docutils literal notranslate"><span class="pre">2024</span></code> <code class="docutils literal notranslate"><span class="pre">2025</span></code>. In that
+case, use <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">2025</span></code> (the latest is usually best) and then try
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span></code> again to get the list.</p>
+<p>Have a look through the list and see if you can find modules named <code class="docutils literal notranslate"><span class="pre">GCC</span></code>,
+<code class="docutils literal notranslate"><span class="pre">HDF5</span></code>, <code class="docutils literal notranslate"><span class="pre">OpenMPI</span></code> (or some other MPI implementation, like <code class="docutils literal notranslate"><span class="pre">MPICH</span></code>), <code class="docutils literal notranslate"><span class="pre">make</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">Python</span></code>. The exact names will vary from machine to machine. If the list is
+long, it’s better to let the computer search for you using e.g.
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">keyword</span> <span class="pre">HDF5</span></code>.</p>
+<p>Often, there are multiple versions of a package available. The codes in Torch
+(and AMUSE) are fairly old, so probably any version will work. If you see
+different packages with names like <code class="docutils literal notranslate"><span class="pre">gompi</span></code> or <code class="docutils literal notranslate"><span class="pre">iimpi</span></code>, use the <code class="docutils literal notranslate"><span class="pre">gompi</span></code> ones, as
+those match GCC and OpenMPI.</p>
+<p>You may not need make if it’s already available. If the command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>prints some text starting with GNU Make, then you’re good to go.</p>
+<p>Once you have found the needed module names, you can load the modules, for
+example for Snellius using the 2025 software stack (you’ll need to modify the
+exact module names to suit your machine):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">load</span> <span class="mi">2025</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">GCC</span><span class="o">/</span><span class="mf">14.2.0</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">OpenMPI</span><span class="o">/</span><span class="mf">5.0.7</span><span class="o">-</span><span class="n">GCC</span><span class="o">-</span><span class="mf">14.2.0</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">HDF5</span><span class="o">/</span><span class="mf">1.14.6</span><span class="o">-</span><span class="n">gompi</span><span class="o">-</span><span class="mi">2025</span><span class="n">a</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">make</span><span class="o">/</span><span class="mf">4.4.1</span><span class="o">-</span><span class="n">GCCcore</span><span class="o">-</span><span class="mf">14.2.0</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">Python</span><span class="o">/</span><span class="mf">3.13.1</span><span class="o">-</span><span class="n">GCCcore</span><span class="o">-</span><span class="mf">14.2.0</span>
+</pre></div>
+</div>
+<p>Next, we can make a Python virtual environment. This is a directory, which can
+go into your project directory or wherever you want it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">Torch</span><span class="o">-</span><span class="n">env</span>
+</pre></div>
+</div>
+<p>We can then activate the environment, and install the Python dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">Torch</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">pip</span> <span class="n">wheel</span> <span class="n">scipy</span> <span class="n">astropy</span> <span class="n">jupyter</span> <span class="n">pandas</span> <span class="n">seaborn</span> <span class="n">matplotlib</span> <span class="n">yt</span>
+</pre></div>
+</div>
+<p>At this point, it’s probably convenient to create a file you can load that will
+activate the modules and the virtual environment whenever you want to work with
+Torch. To do that, create a file named Torch.env in your project directory
+containing the module load commands and the activation of the environment, like
+so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">load</span> <span class="mi">2025</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">GCC</span><span class="o">/</span><span class="mf">14.2.0</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">OpenMPI</span><span class="o">/</span><span class="mf">5.0.7</span><span class="o">-</span><span class="n">GCC</span><span class="o">-</span><span class="mf">14.2.0</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">HDF5</span><span class="o">/</span><span class="mf">1.14.6</span><span class="o">-</span><span class="n">gompi</span><span class="o">-</span><span class="mi">2025</span><span class="n">a</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">make</span><span class="o">/</span><span class="mf">4.4.1</span><span class="o">-</span><span class="n">GCCcore</span><span class="o">-</span><span class="mf">14.2.0</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">Python</span><span class="o">/</span><span class="mf">3.13.1</span><span class="o">-</span><span class="n">GCCcore</span><span class="o">-</span><span class="mf">14.2.0</span>
+<span class="o">.</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">Torch</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>with appropriate modifications for your site. Now you can activate everything in
+one command using <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">Torch.env</span></code> in your project directory (note the period and
+the space at the beginning, they’re required).</p>
+<p>With the environment set up and activated, we can install AMUSE and most of the
+codes that Torch uses into it. First, we need to download and unpack it (into
+our project directory):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">amusecode</span><span class="o">/</span><span class="n">amuse</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>AMUSE has had a major upgrade to its installer recently, so be sure to get
+v2025.9.0 or a later version, older ones won’t work.</p>
+<p>Next, we can move into the newly created AMUSE source directory, and run the
+installer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">amuse</span>
+<span class="o">./</span><span class="n">setup</span>
+</pre></div>
+</div>
+<p>This will produce quite a bit of output, including an overview of installable
+codes, disabled codes and the reasons why, and follow-up instructions.</p>
+<p>If you’re on a local machine and don’t already have the dependencies installed,
+then ./setup will give you the required command to install them using your local
+package manager. Note that you probably don’t need all the dependencies it
+suggests installing, as that is the complete set and Torch only uses a few of
+AMUSE’s many codes. Compilers for C, C++ and Fortran, MPI, HDF5, make and Python
+should go a long way.</p>
+<p>If all went well then you should now be able to install the AMUSE packages you
+need into your virtual environment using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">setup</span> <span class="n">install</span> <span class="n">framework</span> <span class="n">kepler</span> <span class="n">petar</span> <span class="n">ph4</span> <span class="n">seba</span> <span class="n">smalln</span>
+</pre></div>
+</div>
+<p>Note that Torch doesn’t necessarily use all of these, so if you know which ones
+you want, then you can install only those. At any rate you can return to the
+AMUSE directory later and use ./setup to install more codes.</p>
+<p>With that, we have a virtual environment that is ready to install Torch into.</p>
+</section>
+<section id="installing-torch">
+<h2>Installing Torch<a class="headerlink" href="#installing-torch" title="Link to this heading"></a></h2>
+<p>The first step to installing Torch is to get a copy of FLASH. To do that, you
+need to register, which may take a few days, and then download FLASH 4.6.2. The
+FLASH homepage <a class="reference external" href="http://flash.uchicago.edu/site/flashcode">(http://flash.uchicago.edu/site/flashcode)</a> will show you how.</p>
+<p>Once you have a FLASH4.6.2.tar.gz file in your project directory, you need to
+unpack it, and then set the FLASH DIR environment variable so that the Torch
+installer can find it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd torch_project
+tar xzf FLASH4.6.2.tar.gz
+export FLASH_DIR=${PWD}/FLASH4.6.2
+</pre></div>
+</div>
+<p>Next, we can download Torch, and set TORCH DIR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://bitbucket.org/torch-sf/torch.git export TORCH_DIR=${PWD}/torch
+</pre></div>
+</div>
+<p>Then we can move into the Torch directory, and run its installer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ${TORCH_DIR} ./install.sh
+</pre></div>
+</div>
+<p>This will add the Fortran parts of Torch to FLASH. Next, we need to make the
+Python parts of Torch available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PYTHONPATH=$PYTHONPATH:$TORCH_DIR/src
+</pre></div>
+</div>
+<p>You will want to add the exports of TORCH DIR and FLASH DIR to your Torch.env,
+as well as the PYTHONPATH, like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module load 2025
+module load GCC/14.2.0
+module load OpenMPI/5.0.7-GCC-14.2.0
+module load HDF5/1.14.6-gompi-2025a
+module load make/4.4.1-GCCcore-14.2.0
+module load Python/3.13.1-GCCcore-14.2.0
+FLASH_DIR=/path/to/FLASH4.6.2
+TORCH_DIR=/path/to/torch
+. /path/to/torch_project/Torch-env/bin/activate export PYTHONPATH=$PYTHONPATH:$TORCH_DIR/src
+</pre></div>
+</div>
+<p>With Torch installed into FLASH, we can now go to the FLASH directory and
+configure it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $FLASH_DIR
+./setup Cube -auto -3d +amuseUSM +amuseMG +rayPE +HandCnew +amuseSinksAndStars +amuseWind +enerinj +supportPPMupwind +pm4dev -maxblocks=100 +cube16 --site=torch_auto
+</pre></div>
+</div>
+<p>The final piece of the puzzle are Torch’s AMUSE FLASH bindings. These make it
+possible for the Python parts of Torch to talk to FLASH, including its Torch
+additions. Check that you still have your virtual environment active, and then
+you can compile and install FLASH and the bindings like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $TORCH_DIR
+make -C src/amuse/torch_amuse_flash develop-torch-amuse-flash
+</pre></div>
+</div>
+<p>With that, your environment should contain a working Torch installation. Time to
+give it a try!</p>
+</section>
+<section id="running-the-turbsph-test">
+<h2>Running the turbsph test<a class="headerlink" href="#running-the-turbsph-test" title="Link to this heading"></a></h2>
+<p>You are now ready to run a Torch simulation! We will simulate a
+<span class="math notranslate nohighlight">\(3 \times 10^3\,{\rm M}_{\odot}\)</span>, <span class="math notranslate nohighlight">\(5\,{\rm pc}\)</span> radius gas sphere in
+<span class="math notranslate nohighlight">\(\pm 7\,{\rm pc}\)</span> cubic domain with outflow boundary conditions. In about a
+free-fall time (<span class="math notranslate nohighlight">\(\approx 2\,{\rm Myr}\)</span>), the cloud will collapse under its own
+gravity, create a sink particle, and begin forming stars.</p>
+<p>Create a simulation directory and use to the <code class="docutils literal notranslate"><span class="pre">setup_simulation.sh</span></code> script to
+setup the necessary files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir /path/to/test_simulation
+cd /path/to/test_simulation
+cp $TORCH_DIR/ic/turbsph/setup_simulation.sh
+bash setup_simulation.sh
+</pre></div>
+</div>
+<p>Modify the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> according to you HPC system and submit the job</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbatch</span> <span class="n">run</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>The simulation should take 1–10 minutes to reach 2 Myr. It will use 6 threads:
+3 for FLASH, 1 for n-body integration (petar), 1 for stellar evolution, and 1
+for AMUSE. At around 1 Myr, a sink particle will form and begin creating stars.
+One or a few <span class="math notranslate nohighlight">\(&gt;7\,{\rm M}_{\odot}\)</span> stars may begin blowing a wind, so the time
+step may drop; you may wish to end the simulation early.</p>
+<p>If you increase the number of tasks requested, torch user.py will automatically
+assign more threads (workers) to FLASH. Log files will be dumped in your current
+working directory, and simulation outputs will be written to the data directory.
+If you re-start a simulation, Torch (FLASH) will overwrite existing data, but
+append to (some) existing logs. You may want to rename or delete your old logs
+to help keep track of your runs.</p>
+</section>
+<section id="analyse-the-output">
+<h2>Analyse the output<a class="headerlink" href="#analyse-the-output" title="Link to this heading"></a></h2>
+<p>To analyze the outputs, we recomend using yt to load the data and create plots.
+There are also scripts available to make basic analysis. First up we can create
+movie frames of all the outputs. For this we need the python package <code class="docutils literal notranslate"><span class="pre">yt</span></code>. See
+their <a class="reference external" href="https://yt-project.org/">website</a> for documenation and examples.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">yt</span>
+<span class="n">conda</span> <span class="n">clean</span> <span class="o">--</span><span class="nb">all</span>
+</pre></div>
+</div>
+<p>To make the movie frames use <code class="docutils literal notranslate"><span class="pre">movie.py</span></code> available in the <code class="docutils literal notranslate"><span class="pre">utils</span></code>. The default
+parameters are set for the turbsph test, but can be changed using arguments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python $TORCH_DIR/utils/movie.py . -q rho -ap -f
+</pre></div>
+</div>
+<p>Enjoy creating your own Torch setups and simulations!</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Torch-SF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Installation.html" class="btn btn-neutral float-right" title="Detailed Installation Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Eric Andersson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

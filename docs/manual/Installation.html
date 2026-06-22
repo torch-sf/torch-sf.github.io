@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detailed Installation Guide &mdash; Torch-SF  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQ" href="FAQ.html" />
+    <link rel="prev" title="Quickstart" href="Quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torch-SF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Detailed Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vettam">VETTAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/Torch.html">Torch</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer/Developer_Guide.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torch-SF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Detailed Installation Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/manual/Installation.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="detailed-installation-guide">
+<h1>Detailed Installation Guide<a class="headerlink" href="#detailed-installation-guide" title="Link to this heading"></a></h1>
+<section id="vettam">
+<h2>VETTAM<a class="headerlink" href="#vettam" title="Link to this heading"></a></h2>
+<p>VETTAM requires PETSC version 3.19.x. You can use a module if available, or download and install it with the following steps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">mcs</span><span class="o">.</span><span class="n">anl</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">petsc</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">snapshots</span><span class="o">/</span><span class="n">petsc</span><span class="o">-</span><span class="mf">3.19.6</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">petsc</span><span class="o">-</span><span class="mf">3.19.6</span>
+<span class="o">./</span><span class="n">configure</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cc</span><span class="o">=</span><span class="n">mpicc</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cxx</span><span class="o">=</span><span class="n">mpic</span><span class="o">++</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">fc</span><span class="o">=</span><span class="n">mpif90</span>
+</pre></div>
+</div>
+<p>Then use the make command that petsc tells you to use after configure. It should look something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">PETSC_DIR</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">petsc</span><span class="o">-</span><span class="mf">3.19.6</span> <span class="n">PETSC_ARCH</span><span class="o">=</span><span class="n">arch</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">c</span><span class="o">-</span><span class="n">debug</span> <span class="nb">all</span>
+<span class="n">make</span> <span class="n">PETSC_DIR</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">petsc</span><span class="o">-</span><span class="mf">3.19.6</span> <span class="n">PETSC_ARCH</span><span class="o">=</span><span class="n">arch</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">c</span><span class="o">-</span><span class="n">debug</span> <span class="n">check</span>
+</pre></div>
+</div>
+<p>Once you have petsc installed/loaded, define the following environment variables. These must be defined in your run script as well.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PETSC_DIR=/path/to/petsc-3.19.x
+export PETSC_ARCH=arch-linux-c-debug
+export LD_LIBRARY_PATH=$PETSC_ARCH/lib:$LD_LIBRARY_PATH
+</pre></div>
+</div>
+<p>Compiling VETTAM:</p>
+<p>In the FLASH Makefile.h:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">-I${PETSC_ARCH}/include</span> <span class="pre">-I${PETSC_DIR}/include</span> <span class="pre">-L${PETSC_ARCH}/lib</span> <span class="pre">-lpetsc</span></code> to <code class="docutils literal notranslate"> <span class="pre">FFLAGS_OPT</span></code>.</p></li>
+<li><p>Add LIB_PETSC  = -L${PETSC_ARCH}/lib -lpetsc -lz</p></li>
+</ul>
+<p>In amuse/src/community/flash/Makefile.h:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">-I${PETSC_ARCH}/include</span> <span class="pre">-I${PETSC_DIR}/include</span> <span class="pre">-L${PETSC_ARCH}/lib</span> <span class="pre">-lpetsc</span></code> to <code class="docutils literal notranslate"> <span class="pre">FCFLAGS</span></code>.</p></li>
+</ul>
+<p>Finally, in the setup step of the FLASH compilation, replace <code class="docutils literal notranslate"><span class="pre">+rayPE</span></code> with <code class="docutils literal notranslate"><span class="pre">+vettam</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">setup</span> <span class="n">Cube</span> <span class="o">-</span><span class="n">auto</span> <span class="o">-</span><span class="mi">3</span><span class="n">d</span> <span class="o">+</span><span class="n">amuseusm</span> <span class="o">+</span><span class="n">amusemg</span> <span class="o">+</span><span class="n">vettam</span> <span class="o">+</span><span class="n">handcnew</span> <span class="o">+</span><span class="n">amusesinksandstars</span> <span class="o">+</span><span class="n">amusewinds</span> <span class="o">+</span><span class="n">enerinj</span> <span class="o">+</span><span class="n">supportppmupwind</span> <span class="o">+</span><span class="n">pm4dev</span> <span class="o">+</span><span class="n">cube16</span> <span class="o">-</span><span class="n">maxblocks</span><span class="o">=</span><span class="mi">100</span>
+</pre></div>
+</div>
+<p>Running VETTAM:</p>
+<p>The default parameters for VETTAM can be found in <code class="docutils literal notranslate"><span class="pre">flash.par.vettam</span></code>. The file <code class="docutils literal notranslate"><span class="pre">opacity.inp</span></code> needs to be linked to your run directory for VETTAM to work.  Below is a table of the relevant vettam parameters that are useful to know and change, and some helpful notes about their uses.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rt_rtol</p></td>
+<td><p>Tolerance of implicit radiation update solve. The maximum value to set this if petsc isn’t converging is 1e-2.</p></td>
+</tr>
+<tr class="row-odd"><td><p>rt_maxits</p></td>
+<td><p>Maximum iterations before attempting subcycling. This can also be raised to help with convergence, but less helpful than raising the tolerance.</p></td>
+</tr>
+<tr class="row-even"><td><p>rt_healpix_nSide</p></td>
+<td><p>This sets the number of healpix tessellations for raytracing from each cell. Must be multiple of 2. 2 is recommended; higher values are more accurate but much slower and memory intensive.</p></td>
+</tr>
+<tr class="row-odd"><td><p>rt_nrOfAngleGroups</p></td>
+<td><p>This controls how many angle groups are used for the raytracing step. If you have many blocks and VETTAM runs out of memory, this splits the raytrace steps into multiple, dividing the raytracing step over the specified number of angle groups. raytrace*.log file will inform the memory consumption of raytracing per cpu and will help in setting this parameter correctly.</p></td>
+</tr>
+<tr class="row-even"><td><p>sigma_star</p></td>
+<td><p>This is the Gaussian source size in units of dx for radiation injection from each star. Keeping this at 0.1 ensures that VETTAM still treats the stars as point sources of radiation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>noSink_VETTAM</p></td>
+<td><p>This flag sets whether to use VETTAM if there are no sinks. This should be kept as true, because you can have stars with no sinks.</p></td>
+</tr>
+<tr class="row-even"><td><p>noStar_VETTAM</p></td>
+<td><p>This flag sets whether to use VETTAM if there are no stars. This can be set to false, since we can skip the expensive raytracing step if there are no sources on the grid.</p></td>
+</tr>
+<tr class="row-odd"><td><p>rt_etens</p></td>
+<td><p>This sets the closure method for VETTAM. For production runs, this should always be “vet”.</p></td>
+</tr>
+<tr class="row-even"><td><p>rt_linearsolver</p></td>
+<td><p>This sets the linear solver for the PETSC solve step. This can be changed if there are convergence issues, but I’ve found this rarely helps.</p></td>
+</tr>
+<tr class="row-odd"><td><p>preconditioner</p></td>
+<td><p>This sets the preconditioner for the PETSC solve step. This can be changed if there are convergence issues, but I’ve found this rarely helps.</p></td>
+</tr>
+<tr class="row-even"><td><p>rt_freqbands = 2<br>rt_band1 = “EUV”<br>rt_band2 = “FUV”</p></td>
+<td><p>This sets the number and type of frequency bands to solve.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dust_euvopac_value</p></td>
+<td><p>This sets the opacity of dust to EUV photons.</p></td>
+</tr>
+<tr class="row-even"><td><p>dust_fuvopac_value</p></td>
+<td><p>This sets the opacity of dust to FUV photons.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dusttoGasRatio</p></td>
+<td><p>This sets the dust to gas ratio is units of the solar value.</p></td>
+</tr>
+<tr class="row-even"><td><p>ion_sigmaH</p></td>
+<td><p>This sets the cross section of H atoms to EUV Photons.</p></td>
+</tr>
+<tr class="row-odd"><td><p>xl_rad_bc<br>xr_rad_bc<br>yl_rad_bc<br>yr_rad_bc<br>zl_rad_bc<br>zr_rad_bc</p></td>
+<td><p>This sets the radiation boundary conditions. The default value of 6 is Marshak boundary conditions. This must stay at 6 to prevent convergence issues in the FUV band.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="FAQ.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Eric Andersson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
