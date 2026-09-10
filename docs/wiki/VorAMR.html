@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VorAMR User Guide &mdash; Torch-SF  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Developer Guide" href="../developer/Developer_Guide.html" />
+    <link rel="prev" title="Stellar Feedback" href="Stellar_Feedback.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torch-SF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manual/Quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/Installation.html">Detailed Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Torch.html">Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Stellar_Feedback.html">Stellar Feedback</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-voramr-works">How <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-voramr">How to use <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#voramr-parameters"><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-of-a-voramr-run">Workflow of a <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-troubleshooting">Tips &amp; Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer/Developer_Guide.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torch-SF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> User Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/wiki/VorAMR.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="voramr-user-guide">
+<h1><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> User Guide<a class="headerlink" href="#voramr-user-guide" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> was created to allow for output data from other star formation software suites to be used as initial conditions in <code class="docutils literal notranslate"><span class="pre">Torch</span></code>. Currently, <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> has only been shown to be able to convert data from the star formation code <code class="docutils literal notranslate"><span class="pre">AREPO</span></code> into <code class="docutils literal notranslate"><span class="pre">Torch</span></code> ICs, but in theory can be easily adapted to convert ANY moving-mesh, AMR, or SPH code into <code class="docutils literal notranslate"><span class="pre">Torch</span></code> ICs.The implementation of <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> is described in detail in <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...994...69L/abstract">this paper</a>. Here we provide a practical guide for using <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code>.
+<img alt="Example interpolation from Arepo to Torch." src="../_images/voramr.png" /></p>
+<section id="how-voramr-works">
+<h2>How <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> works<a class="headerlink" href="#how-voramr-works" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> uses output data from other hydro-codes to build a refined grid in <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> and then populate that grid with field values (density, internal energy, velocity, etc.) via the <code class="docutils literal notranslate"><span class="pre">AMUSE</span></code> interface. By doing this all within the <code class="docutils literal notranslate"><span class="pre">Torch</span></code> framework, the resulting grid and initial gas/particle properties allows <code class="docutils literal notranslate"><span class="pre">Torch</span></code> to immediately launch into a simulation but with external data as its initial conditions. <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> takes advantage of the ”refine on particle” routines within <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> to construct a refined grid that as accurately as possible mirrors the local mesh scale of the <code class="docutils literal notranslate"><span class="pre">AREPO</span></code> data. <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> also uses a nearest-neighbor NDInterpolator to fill the <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> grid cells with the field data of the nearest Voronoi mesh element (and therefore the element which encapsulates the cell center).
+<img alt="VorAMR data flow." src="../_images/voramr-logic.png" /></p>
+</section>
+<section id="how-to-use-voramr">
+<h2>How to use <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code><a class="headerlink" href="#how-to-use-voramr" title="Link to this heading"></a></h2>
+<section id="voramr-parameters">
+<h3><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> Parameters<a class="headerlink" href="#voramr-parameters" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> is installed with <code class="docutils literal notranslate"><span class="pre">Torch</span></code>, but is turned off by default. <code class="docutils literal notranslate"><span class="pre">Torch</span></code> operates normally with <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> turned off. To turn <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> on, switches must be flipped in the <code class="docutils literal notranslate"><span class="pre">flash.par</span></code> file. Note, the file <code class="docutils literal notranslate"><span class="pre">flash.par.turbsph</span></code> standard does not have VorAMR flags. <code class="docutils literal notranslate"><span class="pre">flash.par.voramr</span></code> is meant to be identical but with the <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> switches included. All of the <code class="docutils literal notranslate"><span class="pre">Voramr</span></code> parameters are listed below, with instructions on how to use them. Go through and set each one of them carefully according to your simulation. If you change the number of cells in a <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> block, you will need to change <code class="docutils literal notranslate"><span class="pre">min/max_particles_per_blk</span></code> accordingly. Changing the number of cells in a block is <strong>strongly discouraged.</strong></p>
+<blockquote>
+<div><p>Main toggles for <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code>. Do not change these, except for <code class="docutils literal notranslate"><span class="pre">voramr_source</span></code>.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">use_voramr</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span> <span class="c1"># main control switch</span>
+<span class="n">voramr_source</span> <span class="o">=</span> <span class="s2">"snapshot_518_9.hdf5"</span> <span class="c1"># source data to be converted</span>
+<span class="n">voramr_input</span> <span class="o">=</span> <span class="s2">"voramr_input.hdf5"</span> <span class="c1"># name of file to be read-in by FLASH</span>
+<span class="n">refine_on_particle_count</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span> <span class="c1"># builds grid based on source data - BE SURE TO TURN OFF FOR NORMAL TORCH</span>
+<span class="n">min_particles_per_blk</span> <span class="o">=</span> <span class="mi">4096</span> <span class="c1"># Assumes 16x16x16 blocks</span>
+<span class="n">max_particles_per_blk</span> <span class="o">=</span> <span class="mi">4096</span>
+<span class="n">refineonjeanslength</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>These parameters control where in the Voronoi mesh snapshot <code class="docutils literal notranslate"><span class="pre">Torch</span></code> will center on. Note that if <code class="docutils literal notranslate"><span class="pre">localRef_r</span></code> is smaller than the domain box, the corners of your domain will contain no interpolated data because the refinement region will be a sphere inside a box. Therefore, make this radius extend to the box diagonal.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Restrict initial refinement by only placing particles within radius</span>
+<span class="n">use_localRef</span> <span class="o">=</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+<span class="n">center_localRef</span> <span class="o">=</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span> <span class="c1"># Crops FLASH domain centered at localRef_{x,y,z} and centers new domain</span>
+<span class="c1"># Local refinement center and radius</span>
+<span class="n">localRef_x</span> <span class="o">=</span> <span class="mf">3.20621187e+20</span> 
+<span class="n">localRef_y</span> <span class="o">=</span> <span class="mf">6.24367575e+20</span>
+<span class="n">localRef_z</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.51873194e+20</span>
+<span class="n">localRef_r</span> <span class="o">=</span> <span class="mf">1.543e+20</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>These parameters set the static background gravitational acceleration. The functional form of the static potential given the parameters set below is: <span class="math notranslate nohighlight">\(a(z)=a_1z^3+a_2z^2+a_3z+a_4\)</span>.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sim_withStaticGrav</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+<span class="n">sim_aParm1</span> <span class="o">=</span> <span class="mf">1.31142525e-72</span> 
+<span class="n">sim_aParm2</span> <span class="o">=</span> <span class="mf">1.35401904e-52</span> 
+<span class="n">sim_aParm3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.36078509e-30</span> 
+<span class="n">sim_aParm4</span> <span class="o">=</span> <span class="mf">4.06112841e-11</span> 
+</pre></div>
+</div>
+<blockquote>
+<div><p>Torch is capable of de-refining the grid to a user defined level outside of a user defined rectangular region of interest. This is most useful in large-scale runs such as those initialized with VorAMR. To use this capability, the user must set the parameters listed below in the flash.par file.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">use_deref</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+<span class="n">deref_lref</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># level to derefine to</span>
+<span class="n">deref_xl</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.543e+19</span> 
+<span class="n">deref_xr</span> <span class="o">=</span> <span class="mf">1.543e+19</span>
+<span class="n">deref_yl</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.543e+19</span>
+<span class="n">deref_yr</span> <span class="o">=</span> <span class="mf">1.543e+19</span>
+<span class="n">deref_zl</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.543e+19</span>
+<span class="n">deref_zr</span> <span class="o">=</span> <span class="mf">1.543e+19</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>The important parameters are automatically passed to Torch through <code class="docutils literal notranslate"><span class="pre">torch_user.py</span></code>. The only parameters for <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> you may need to change in <code class="docutils literal notranslate"><span class="pre">torch_user.py</span></code> are listed below. <code class="docutils literal notranslate"><span class="pre">numBlocks</span></code> <strong>must exceed</strong> the <strong>total</strong> number of blocks in your simulation. If you get weird grid interpolation patterns, check this parameter. If you are running out of memory, you can try pickling the kdtree file. If you change the number of cells in a <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> block, you will need to change <code class="docutils literal notranslate"><span class="pre">cellsPerBlock</span></code> accordingly.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="p">[</span><span class="err">’</span><span class="n">pickle_kdtree</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># saves kdtree built from source_file used in interpolation. Useful if</span>
+<span class="n">memory</span> <span class="n">strained</span><span class="o">.</span>
+<span class="n">p</span><span class="p">[</span><span class="err">’</span><span class="n">pickle_file_name</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"kdtree.pickle"</span>
+<span class="n">p</span><span class="p">[</span><span class="err">’</span><span class="n">numBlocks</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="mi">15000</span> <span class="c1"># Quirky parameter, just set to any number larger than total num actual blocks</span>
+<span class="ow">and</span> <span class="n">FLASH</span> <span class="n">will</span> <span class="n">figure</span> <span class="n">it</span> <span class="n">out</span><span class="o">.</span>
+<span class="n">p</span><span class="p">[</span><span class="err">’</span><span class="n">cellsPerBlock</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16</span>
+</pre></div>
+</div>
+</section>
+<section id="workflow-of-a-voramr-run">
+<h3>Workflow of a <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> run<a class="headerlink" href="#workflow-of-a-voramr-run" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>After installing <code class="docutils literal notranslate"><span class="pre">Torch</span></code>, set the parameters for <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> according to the instructions given above.</p></li>
+<li><p>Change the following <code class="docutils literal notranslate"><span class="pre">flash.par</span></code> parameters to force VorAMR to output a checkpoint file as soon as the interpolation is complete.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tmax</span> <span class="o">=</span> <span class="mf">6.30e8</span> <span class="c1"># two init timesteps</span>
+<span class="n">dtinit</span> <span class="o">=</span> <span class="mf">3.15e8</span>
+<span class="n">dtmin</span> <span class="o">=</span> <span class="mf">3.15e7</span>
+<span class="n">checkpointFileIntervalTime</span> <span class="o">=</span> <span class="mf">3.15e7</span> <span class="c1"># dt_min</span>
+<span class="n">plotFileIntervalTime</span> <span class="o">=</span> <span class="mf">3.15e8</span>
+<span class="n">particleFileIntervalTime</span> <span class="o">=</span> <span class="mf">3.15e8</span>
+</pre></div>
+</div>
+</li>
+<li><p>The resulting checkpoint can now be considered your initial conditions. Turn <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> off with <code class="docutils literal notranslate"><span class="pre">use_voramr</span> <span class="pre">=</span> <span class="pre">.false.</span></code>, change the output parameters back, and now set <code class="docutils literal notranslate"><span class="pre">restart=.true.</span></code> and restart from the outputted checkpoint file.</p></li>
+</ol>
+<p>In addition to the usual Torch output, VorAMR produces two more files. These files are both produced as sometimes we only want <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> to refine on a portion of the source data, but we want <code class="docutils literal notranslate"><span class="pre">AMUSE</span></code> to have an accurate kdtree for all data to avoid domain edge effects during interpolation. The extra files are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">voramr</span> <span class="pre">input.hdf5</span> </code>: the particle data extracted from the source data. This is what FLASH sees and will refine
+on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">interp-data.hdf5</span></code>: the file from which the interpolation kdtree is built. Only AMUSE sees this file, but then
+passes info from it to FLASH. This file will always contain all data from the source file.</p></li>
+</ul>
+</section>
+</section>
+<section id="tips-troubleshooting">
+<h2>Tips &amp; Troubleshooting<a class="headerlink" href="#tips-troubleshooting" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> works with any number of processors. If you see any information saying to only use <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> on a single core, that text is outdated.</p></li>
+<li><p>To acheive maximum consistency with the structure of the input data, <code class="docutils literal notranslate"><span class="pre">lrefine</span> <span class="pre">max</span></code> should be set such that the highest refinement <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> blocks will contain as many input data points as cells (4096 for +cube16 blocks).</p></li>
+<li><p>If your source data contains star particles that you would like to include in <code class="docutils literal notranslate"><span class="pre">Torch</span></code>, checkout the <code class="docutils literal notranslate"><span class="pre">arepo_stars</span></code> branch for code that does this consistently with the sub-grid star formation routine in <code class="docutils literal notranslate"><span class="pre">Torch</span></code>.</p></li>
+<li><p>When importing initial conditions from one simulation framework to another, a lot of instabilities can occur due to the different approximations and methods being applied. The one we’ve found most prevalent is the discrepency between the applied heating and cooling of two simulations. Also in the <code class="docutils literal notranslate"><span class="pre">arepo_stars</span></code> branch are parameters in <code class="docutils literal notranslate"><span class="pre">flash.par</span></code> that allows for a background UV ionization and heating rate to be applied. Those parameters are: <code class="docutils literal notranslate"><span class="pre">use_uv_bkgd</span></code>, <code class="docutils literal notranslate"><span class="pre">uv_bkgd_ion_rate</span></code>, and <code class="docutils literal notranslate"><span class="pre">uv_bkgd_heat_rate</span></code>. This helps specifically with <code class="docutils literal notranslate"><span class="pre">AREPO-Torch</span></code> IC transitions. Be mindful of similar discrepencies with your own models.</p></li>
+<li><p>If the resolution of the <code class="docutils literal notranslate"><span class="pre">Torch</span></code> grid is much higher than the original grid, you will get numerical artifacts along arepo cell borders. Match the two resolutions as closely as possible to mitigate this problem.</p></li>
+<li><p>Sometimes <code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> will run fine, but the resulting grid does not appear to be refined. Check in <code class="docutils literal notranslate"><span class="pre">turbsph.log</span></code>
+and see if the number of particles reported matches the dimensions of the array sent so <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> (reported in
+slurm file) and what <code class="docutils literal notranslate"><span class="pre">FLASH</span></code> actually reads (reported in flash worker.out). If there is a mismatch, then it’s
+likely that some refinement particles are being placed outside of the computational domain. Make sure your
+domain dimensions correctly reflect the source data.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Stellar_Feedback.html" class="btn btn-neutral float-left" title="Stellar Feedback" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../developer/Developer_Guide.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Eric Andersson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

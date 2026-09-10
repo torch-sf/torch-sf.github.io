@@ -16,10 +16,12 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Torch" href="../wiki/Torch.html" /> 
+    <link rel="prev" title="VorAMR User Guide" href="../wiki/VorAMR.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,10 +52,23 @@
 <p class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../wiki/Torch.html">Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/Stellar_Feedback.html">Stellar Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/VorAMR.html"><code class="docutils literal notranslate"><span class="pre">VorAMR</span></code> User Guide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#massive-star-cluster-simulations">Massive Star Cluster Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mass-agglomeration">Mass Agglomeration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feedback-mass">Feedback Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resolution">Resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mass-loading">Mass Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stellar-evolution">Stellar Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-conditions">Initial Conditions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -83,13 +98,59 @@
   <section class="tex2jax_ignore mathjax_ignore" id="developer-guide">
 <h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Link to this heading"></a></h1>
 <p>The Torch code is currently available on <a class="reference external" href="https://github.com/torch-sf/torch">GitHub</a>.</p>
+<section id="massive-star-cluster-simulations">
+<h2>Massive Star Cluster Simulations<a class="headerlink" href="#massive-star-cluster-simulations" title="Link to this heading"></a></h2>
+<p>Clouds with initial mass <span class="math notranslate nohighlight">\(\geq 10^6~\rm M_\odot\)</span> are considered to be massive, and simulating the clusters that form from them requires special considerations. Here we provide a brief guide on how to simulate massive cluster formation in <code class="docutils literal notranslate"><span class="pre">Torch</span></code>.</p>
+<section id="mass-agglomeration">
+<h3>Mass Agglomeration<a class="headerlink" href="#mass-agglomeration" title="Link to this heading"></a></h3>
+<p>In massive clouds, the star formation efficiency will be between <span class="math notranslate nohighlight">\(80-100%\)</span>. This gives you an estimate of how many stars your cloud will form. A <span class="math notranslate nohighlight">\(10^6~\rm M_\odot\)</span> cluster with a fully sampled IMF will easily produce over 1 million stars. It is highly recommended to use <strong>mass agglomeration</strong> in massive cluster simulations to reduce the computational load on the dynamics code. Torch has been run before with 800k stars, but it is very slow. Consider your science goals, how far you want to run your simulation, and what you want to study when deciding what your agglomeration mass should be. For example, if you want to get to gas expulsion, agglomerate stars such that your cluster will contain no more than ~250k particles. Another thing to consider is your feedback mass. If you choose an agglomeration mass of 4, you can have agglomerated stars with masses up to 8, so you must set your feedback mass above 8.</p>
+<blockquote>
+<div><p>We recommend an agglomeration mass of <span class="math notranslate nohighlight">\(4\rm~M_\odot\)</span>, which will reduce the number of stars produced by <span class="math notranslate nohighlight">\(\sim80%\)</span>.</p>
+</div></blockquote>
+</section>
+<section id="feedback-mass">
+<h3>Feedback Mass<a class="headerlink" href="#feedback-mass" title="Link to this heading"></a></h3>
+<p>In massive cluster formation, there are so many massive stars that the feedback from low mass stars becomes negligible. Therefore, using a higher feedback mass cutoff reduces the computational load while only losing a small fraction of the total feedback energy budget. This is particularly important when using <code class="docutils literal notranslate"><span class="pre">FERVENT</span></code> for radiative feedbcak, as the time complexity scales as <span class="math notranslate nohighlight">\(O(N_\star^2)\)</span>.</p>
+<blockquote>
+<div><p>We recommend using a feedback mass of <span class="math notranslate nohighlight">\(20~\rm M_\odot\)</span>, and using <code class="docutils literal notranslate"><span class="pre">VETTAM</span></code> over <code class="docutils literal notranslate"><span class="pre">FERVENT</span></code>.</p>
+</div></blockquote>
+</section>
+<section id="resolution">
+<h3>Resolution<a class="headerlink" href="#resolution" title="Link to this heading"></a></h3>
+<p>It can be tempting to start a high resolution run, but when massive stars flood the grid, your simulation will start to grind to a halt.</p>
+<blockquote>
+<div><p>We recommend a smallest cell width <span class="math notranslate nohighlight">\(\Delta x\sim0.3~\rm pc\)</span> to ensure the run progresses steadily when <span class="math notranslate nohighlight">\(&gt;10^6\rm~K\)</span> gas forms from stellar winds.</p>
+</div></blockquote>
+</section>
+<section id="mass-loading">
+<h3>Mass Loading<a class="headerlink" href="#mass-loading" title="Link to this heading"></a></h3>
+<p>There will be a lot of feedback stars, and therefore a lot of stellar winds. The temperature of the gas sets the timestep of your simulation, so it is important to limit the temperature of stellar wind bubbles with mass loading.</p>
+<blockquote>
+<div><p>We recommend a mass loading target temperature of <span class="math notranslate nohighlight">\(10^6\rm~K\)</span>. You can consider going lower, but be mindful that the peak of the cooling curve is at <span class="math notranslate nohighlight">\(\sim 3\times10^5\rm~K\)</span>, so your winds may cool artificially fast.</p>
+</div></blockquote>
+</section>
+<section id="stellar-evolution">
+<h3>Stellar Evolution<a class="headerlink" href="#stellar-evolution" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">SeBa</span></code> in <code class="docutils literal notranslate"><span class="pre">Torch</span></code> can take up to 30 minutes to complete a single evolution step when ran with <span class="math notranslate nohighlight">\(\gtrsim\)</span> 100k stars. This is an ongoing issue that is being worked on. For now, the option to use interpolated values from a pre-tabulated <code class="docutils literal notranslate"><span class="pre">SeBa</span></code> steps is available. This is particularly useful for massive cluster formation, when simulations typically only run for 1 Myr or less. Stellar properties hardly change on this timescale.</p>
+<blockquote>
+<div><p>[OPTIONAL] If SeBa is your bottleneck, consider using static stellar evolution, available on the <code class="docutils literal notranslate"><span class="pre">feature/static-se</span></code> branch.</p>
+</div></blockquote>
+</section>
+<section id="initial-conditions">
+<h3>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h3>
+<p>Very massive and dense clouds cannot be initialized in hydrostatic equilibrium. It is likely a pressure shockwave will form if your cloud isn’t embedded in a high enough density medium. Extending the turbulent velocities to the entire box can also help with this.</p>
+<blockquote>
+<div><p>We recommend using a high enough density (<span class="math notranslate nohighlight">\(100\rm~cm^{-3}\)</span>) ambient medium and applying the turbulent velocities to the entire domain if your initial cloud is very dense and unstable.</p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../wiki/Torch.html" class="btn btn-neutral float-left" title="Torch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../wiki/VorAMR.html" class="btn btn-neutral float-left" title="VorAMR User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
