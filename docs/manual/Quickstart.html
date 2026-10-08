@@ -53,6 +53,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#hpc-with-virtualenv-and-modules">HPC, with virtualenv and modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-torch">Installing Torch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-turbsph-test">Running the turbsph test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#restarting-a-simulation">Restarting a simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#analyse-the-output">Analyse the output</a></li>
 </ul>
 </li>
@@ -246,34 +247,34 @@ exact module names to suit your machine):</p>
 </div>
 <p>Next, we can make a Python virtual environment. This is a directory, which can
 go into your project directory or wherever you want it.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">Torch</span><span class="o">-</span><span class="n">env</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">torch</span><span class="o">-</span><span class="n">venv</span>
 </pre></div>
 </div>
 <p>We can then activate the environment, and install the Python dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">Torch</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">torch</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 <span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">pip</span> <span class="n">wheel</span> <span class="n">scipy</span> <span class="n">astropy</span> <span class="n">jupyter</span> <span class="n">pandas</span> <span class="n">seaborn</span> <span class="n">matplotlib</span> <span class="n">yt</span>
 </pre></div>
 </div>
 <p>At this point, it’s probably convenient to create a file you can load that will
 activate the modules and the virtual environment whenever you want to work with
-Torch. To do that, create a file named Torch.env in your project directory
-containing the module load commands and the activation of the environment, like
-so:</p>
+Torch. To do that, create a file named torch.env in your project directory
+containing the module load commands and the activation of the python environment,
+like so:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">load</span> <span class="mi">2025</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">GCC</span><span class="o">/</span><span class="mf">14.2.0</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">OpenMPI</span><span class="o">/</span><span class="mf">5.0.7</span><span class="o">-</span><span class="n">GCC</span><span class="o">-</span><span class="mf">14.2.0</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">HDF5</span><span class="o">/</span><span class="mf">1.14.6</span><span class="o">-</span><span class="n">gompi</span><span class="o">-</span><span class="mi">2025</span><span class="n">a</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">make</span><span class="o">/</span><span class="mf">4.4.1</span><span class="o">-</span><span class="n">GCCcore</span><span class="o">-</span><span class="mf">14.2.0</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">Python</span><span class="o">/</span><span class="mf">3.13.1</span><span class="o">-</span><span class="n">GCCcore</span><span class="o">-</span><span class="mf">14.2.0</span>
-<span class="o">.</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">Torch</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="o">.</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">torch_project</span><span class="o">/</span><span class="n">torch</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 </pre></div>
 </div>
 <p>with appropriate modifications for your site. Now you can activate everything in
-one command using <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">Torch.env</span></code> in your project directory (note the period and
+one command using <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">torch.env</span></code> in your project directory (note the period and
 the space at the beginning, they’re required).</p>
-<p>With the environment set up and activated, we can install AMUSE and most of the
-codes that Torch uses into it. First, we need to download and unpack it (into
-our project directory):</p>
+<p>With the full environment (both modules and python environment) set up and
+activated, we can install AMUSE and most of the codes that Torch uses into
+it. First, we need to clone the AMUSE repository (into our project directory):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">amusecode</span><span class="o">/</span><span class="n">amuse</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
@@ -301,22 +302,22 @@ need into your virtual environment using</p>
 <p>Note that Torch doesn’t necessarily use all of these, so if you know which ones
 you want, then you can install only those. At any rate you can return to the
 AMUSE directory later and use ./setup to install more codes.</p>
-<p>With that, we have a virtual environment that is ready to install Torch into.</p>
+<p>With that, we have an environment that is ready to install Torch into.</p>
 </section>
 <section id="installing-torch">
 <h2>Installing Torch<a class="headerlink" href="#installing-torch" title="Link to this heading"></a></h2>
 <p>The first step to installing Torch is to get a copy of FLASH. To do that, you
 need to register, which may take a few days, and then download FLASH 4.6.2. The
 FLASH homepage <a class="reference external" href="http://flash.uchicago.edu/site/flashcode">(http://flash.uchicago.edu/site/flashcode)</a> will show you how.</p>
-<p>Once you have a FLASH4.6.2.tar.gz file in your project directory, you need to
-unpack it, and then set the FLASH DIR environment variable so that the Torch
+<p>Once you have a <code class="docutils literal notranslate"><span class="pre">FLASH4.6.2.tar.gz</span></code> file in your project directory, you need to
+unpack it, and then set the <code class="docutils literal notranslate"><span class="pre">FLASH_DIR</span></code> environment variable so that the Torch
 installer can find it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd torch_project
 tar xzf FLASH4.6.2.tar.gz
 export FLASH_DIR=${PWD}/FLASH4.6.2
 </pre></div>
 </div>
-<p>Next, we can download Torch, and set TORCH DIR:</p>
+<p>Next, we can download Torch, and set <code class="docutils literal notranslate"><span class="pre">TORCH_DIR</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/torch-sf/torch.git export TORCH_DIR=${PWD}/torch
 </pre></div>
 </div>
@@ -329,8 +330,8 @@ Python parts of Torch available:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PYTHONPATH=$PYTHONPATH:$TORCH_DIR/src
 </pre></div>
 </div>
-<p>You will want to add the exports of TORCH DIR and FLASH DIR to your Torch.env,
-as well as the PYTHONPATH, like so:</p>
+<p>You will want to add the exports of <code class="docutils literal notranslate"><span class="pre">TORCH_DIR</span></code> and <code class="docutils literal notranslate"><span class="pre">FLASH_DIR</span></code> to your <code class="docutils literal notranslate"><span class="pre">torch.env</span></code>,
+as well as the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>, like so:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module load 2025
 module load GCC/14.2.0
 module load OpenMPI/5.0.7-GCC-14.2.0
@@ -339,7 +340,7 @@ module load make/4.4.1-GCCcore-14.2.0
 module load Python/3.13.1-GCCcore-14.2.0
 FLASH_DIR=/path/to/FLASH4.6.2
 TORCH_DIR=/path/to/torch
-. /path/to/torch_project/Torch-env/bin/activate export PYTHONPATH=$PYTHONPATH:$TORCH_DIR/src
+. /path/to/torch_project/torch-venv/bin/activate export PYTHONPATH=$PYTHONPATH:$TORCH_DIR/src
 </pre></div>
 </div>
 <p>With Torch installed into FLASH, we can now go to the FLASH directory and
@@ -370,41 +371,59 @@ gravity, create a sink particle, and begin forming stars.</p>
 setup the necessary files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir /path/to/test_simulation
 cd /path/to/test_simulation
-cp $TORCH_DIR/ic/turbsph/setup_simulation.sh
+cp $TORCH_DIR/utils/setup_simulation.sh .
 bash setup_simulation.sh
 </pre></div>
 </div>
-<p>Modify the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> according to you HPC system and submit the job</p>
+<p>Modify the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> according to your HPC system. This should at least include
+updating both the <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code> variable and the <code class="docutils literal notranslate"><span class="pre">TORCH_ENV</span></code> variable, but you may also
+want to update various slurm variables. The <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script includes a lot of
+information about slurm, so you may want to read through your options carefully.</p>
+<p>If you are running an HPC system that is not one of the availble systems already
+mentioned in <code class="docutils literal notranslate"><span class="pre">run.sh</span></code>, you may need to modify the <code class="docutils literal notranslate"><span class="pre">$TORCH_DIR/utils/mpi_setups.sh</span></code>
+script to add the system variables needed for your HPC setup.</p>
+<p>Now that your <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> is ready to go, you can submit the job:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbatch</span> <span class="n">run</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>The simulation should take 1–10 minutes to reach 2 Myr. It will use 6 threads:
+<p>The simulation should take 10–15 minutes to reach 2.5 Myr. It will use 6 threads:
 3 for FLASH, 1 for n-body integration (petar), 1 for stellar evolution, and 1
-for AMUSE. At around 1 Myr, a sink particle will form and begin creating stars.
+for AMUSE. At some point, a sink particle will form and begin creating stars.
 One or a few <span class="math notranslate nohighlight">\(&gt;7\,{\rm M}_{\odot}\)</span> stars may begin blowing a wind, so the time
 step may drop; you may wish to end the simulation early.</p>
-<p>If you increase the number of tasks requested, torch user.py will automatically
+<p>If you increase the number of tasks requested, <code class="docutils literal notranslate"><span class="pre">torch_user.py</span></code> will automatically
 assign more threads (workers) to FLASH. Log files will be dumped in your current
-working directory, and simulation outputs will be written to the data directory.
-If you re-start a simulation, Torch (FLASH) will overwrite existing data, but
+working directory, and simulation outputs will be written to the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory.</p>
+</section>
+<section id="restarting-a-simulation">
+<h2>Restarting a simulation<a class="headerlink" href="#restarting-a-simulation" title="Link to this heading"></a></h2>
+<p>If you want to restart a simulation, you need to modify the <code class="docutils literal notranslate"><span class="pre">flash.par</span></code> to specify
+which checkpoint to restart from and which plot and particle files to start outputing.
+For a simple restart, the <code class="docutils literal notranslate"><span class="pre">$TORCH_DIR/utils/restart.sh</span></code> script will handle this for you.</p>
+<p>Note that if you restart a simulation, Torch (FLASH) will overwrite existing data, but
 append to (some) existing logs. You may want to rename or delete your old logs
 to help keep track of your runs.</p>
 </section>
 <section id="analyse-the-output">
 <h2>Analyse the output<a class="headerlink" href="#analyse-the-output" title="Link to this heading"></a></h2>
-<p>To analyze the outputs, we recomend using yt to load the data and create plots.
-There are also scripts available to make basic analysis. First up we can create
-movie frames of all the outputs. For this we need the python package <code class="docutils literal notranslate"><span class="pre">yt</span></code>. See
-their <a class="reference external" href="https://yt-project.org/">website</a> for documenation and examples.</p>
+<p>To analyze the outputs, we recomend using <code class="docutils literal notranslate"><span class="pre">yt</span></code> to load the data and create plots.
+See their <a class="reference external" href="https://yt-project.org/">website</a> for documenation and examples.</p>
+<p>For example, if you are using conda you can install <code class="docutils literal notranslate"><span class="pre">yt</span></code> with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">yt</span>
 <span class="n">conda</span> <span class="n">clean</span> <span class="o">--</span><span class="nb">all</span>
 </pre></div>
 </div>
-<p>To make the movie frames use <code class="docutils literal notranslate"><span class="pre">movie.py</span></code> available in the <code class="docutils literal notranslate"><span class="pre">utils</span></code>. The default
-parameters are set for the turbsph test, but can be changed using arguments.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python $TORCH_DIR/utils/movie.py . -q rho -ap -f
-</pre></div>
-</div>
+<!---
+There are also scripts available to make basic analysis. First up we can create
+movie frames of all the outputs. For this we need the python package `yt`. 
+
+To make the movie frames use `movie.py` available in the `utils`. The default 
+parameters are set for the turbsph test, but can be changed using arguments.
+
+```
+python $TORCH_DIR/utils/movie.py . -q rho -ap -f
+```
+-->
 <p>Enjoy creating your own Torch setups and simulations!</p>
 </section>
 </section>
